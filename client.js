@@ -6,7 +6,7 @@ function main(remote, port) {
     .toString()
     .replace("hostname ", "")
     .trim();
-  const eventSource = new EventSource(`${client}:${port}/rcode/listen`);
+  const eventSource = new EventSource(`http://${client}:${port}/rcode/listen`);
 
   eventSource.addEventListener("open", async (event) => {
     if (event.type === "open" && event.data) {
