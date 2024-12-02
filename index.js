@@ -1,5 +1,5 @@
+#!/usr/bin/env -S node --no-warnings
 const { dirname } = require("path");
-const { fileURLToPath } = require("url");
 const { Command, Option } = require("commander");
 
 const client = require("./client.js");
