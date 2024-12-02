@@ -1,6 +1,6 @@
 #!/usr/bin/env -S node --no-warnings
 const { dirname } = require("path");
-const { Command, Option } = require("commander");
+const { Command } = require("commander");
 
 const client = require("./client.js");
 const server = require("./server.js");
@@ -43,14 +43,10 @@ program
   .command("listen")
   .description("listen to rcode service")
   .argument("<string>", "remote client address")
-  .addOption(
-    new Option(
-      "-t, --tunnel <tunnel>",
-      "vcode tunnel address"
-    ).makeOptionMandatory()
-  )
-  .action((str, { tunnel }) => {
-    client(str, tunnel);
+  .option("-p, --port <port>", "Define port for service", "3010")
+  .action((str, { port: portOption }) => {
+    const port = parseInt(portOption);
+    client(str, port);
   });
 
 program.parse();

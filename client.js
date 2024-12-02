@@ -1,15 +1,19 @@
 const EventSource = require("eventsource");
 const { execSync } = require("child_process");
 
-function main(remote, tunnel) {
-  const eventSource = new EventSource(`${remote}/rcode/listen`);
+function main(remote, port) {
+  const client = execSync("ssh -G nosana.dev | grep ^hostname")
+    .toString()
+    .replace("hostname ", "")
+    .trim();
+  const eventSource = new EventSource(`${client}:${port}/rcode/listen`);
 
   eventSource.addEventListener("open", async (event) => {
     if (event.type === "open" && event.data) {
       const { path } = JSON.parse(event.data);
       try {
-        console.log(
-          `code --folder-uri=vscode-remote://ssh-remote+${tunnel}${path}`
+        execSync(
+          `code --folder-uri=vscode-remote://ssh-remote+${remote}${path}`
         );
       } catch (err) {
         console.error(err);
