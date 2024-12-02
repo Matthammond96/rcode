@@ -1,5 +1,5 @@
-import express from "express";
-import EventEmitter from "events";
+const express = require("express");
+const EventEmitter = require("events");
 
 const app = express();
 const emitter = new EventEmitter();
@@ -15,7 +15,7 @@ function createEventSourceEvent(value) {
   return `data: ${msg}\n${type ? `event: ${type}\n` : ""}\n`;
 }
 
-export default function main(port) {
+function main(port) {
   app.get("/rcode", (req, res) => {
     console.log(req.query);
     emitter.emit("open", req.query.path);
@@ -42,3 +42,5 @@ export default function main(port) {
 
   app.listen(port);
 }
+
+module.exports = main;

@@ -1,14 +1,14 @@
-import EventSource from "eventsource";
-import { execSync } from "child_process";
+const EventSource = require("eventsource");
+const { execSync } = require("child_process");
 
-export default function main(remote, tunnel) {
+function main(remote, tunnel) {
   const eventSource = new EventSource(`${remote}/rcode/listen`);
 
   eventSource.addEventListener("open", async (event) => {
     if (event.type === "open" && event.data) {
       const { path } = JSON.parse(event.data);
       try {
-        execSync(
+        console.log(
           `code --folder-uri=vscode-remote://ssh-remote+${tunnel}${path}`
         );
       } catch (err) {
@@ -29,3 +29,5 @@ export default function main(remote, tunnel) {
     throw error;
   };
 }
+
+module.exports = main;

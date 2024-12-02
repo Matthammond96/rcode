@@ -1,9 +1,9 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { Command, Option } from "commander";
+const { dirname } = require("path");
+const { fileURLToPath } = require("url");
+const { Command, Option } = require("commander");
 
-import client from "./client.js";
-import server from "./server.js";
+const client = require("./client.js");
+const server = require("./server.js");
 
 const program = new Command();
 program
@@ -12,10 +12,9 @@ program
   .version("0.0.0")
   .argument("<string>", "path")
   .action(async (path) => {
-    console.log(path);
-
-    const __dirname = dirname(fileURLToPath(import.meta.url));
-    console.log(__dirname);
+    const __dirname = dirname(
+      require("url").pathToFileURL(__filename).toString().replace("file://", "")
+    );
 
     try {
       await fetch(`http://localhost:3010/rcode?path=${__dirname}/${path}`, {
