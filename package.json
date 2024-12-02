@@ -1,0 +1,20 @@
+{
+  "name": "rcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "rcode": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "eventsource": "^2.0.2",
+    "express": "^4.21.1"
+  }
+}
