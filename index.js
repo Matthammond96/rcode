@@ -12,9 +12,7 @@ program
   .version("0.0.0")
   .argument("<string>", "path")
   .action(async (path) => {
-    const __dirname = dirname(
-      require("url").pathToFileURL(__filename).toString().replace("file://", "")
-    );
+    const __dirname = process.cwd();
 
     try {
       await fetch(`http://localhost:3010/rcode?path=${__dirname}/${path}`, {
